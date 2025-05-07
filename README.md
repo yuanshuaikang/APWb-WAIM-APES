@@ -63,7 +63,6 @@ APWb-WAIM-APES/
 ├── main_program.py        # Entry point
 ├── data/                  # Example datasets
 ├── README.md
-└── requirements.txt
 ```
 
 ## Dependencies
