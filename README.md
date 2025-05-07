@@ -68,7 +68,6 @@ APWb-WAIM-APES/
 ## Dependencies
 
 * Python 3.7+
-* PyQt5
-* numpy
-* pandas
-
+* PyQt5==5.15.7
+* numpy==1.21.6
+* pandas==1.3.5
