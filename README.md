@@ -1,8 +1,3 @@
-以下是你提供的 `README.md` 内容的 **修改版**，修复了语法错误、排版混乱的问题，确保 Markdown 渲染正确，结构清晰统一：
-
----
-
-````markdown
 # APWb-WAIM-APES
 
 **APES (Adaptive Pattern Exploration System)** is an interactive system for discovering high-utility spatial patterns. Designed with a user-centric approach, APES integrates user feedback into the mining loop to guide the search toward patterns that satisfy both predefined constraints and user interests.
