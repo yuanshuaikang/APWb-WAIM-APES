@@ -1,0 +1,802 @@
+Park,1,162.16,40.32
+Park,2,113.85,179.9
+Park,3,154.64,53.32
+Park,4,32.66,96.22
+Park,5,36.21,128.74
+Park,6,18.87,169.32
+Park,7,54.56,126.17
+Park,8,35.57,123.31
+Park,9,193.91,188.88
+Park,10,170.89,98.52
+Park,11,162.88,65.97
+Park,12,52.97,174.93
+Park,13,135.85,13.87
+Park,14,77.84,193.62
+Park,15,161.24,163.37
+Park,16,106.66,160.82
+Park,17,138.99,103.73
+Park,18,174.86,193.15
+Park,19,102.68,81.96
+Park,20,111.22,5.41
+Park,21,132.94,97.78
+Park,22,161.48,73.56
+Park,23,67.08,52.38
+Park,24,91.28,162.01
+Park,25,65.69,164.54
+Park,26,123.51,138.41
+Park,27,70.03,10.82
+Park,28,185.64,96.18
+Park,29,187.35,138.91
+Park,30,44.05,140.77
+Park,31,175.48,39.04
+Park,32,134.98,72.84
+Park,33,22.08,58.05
+Park,34,30.33,150.83
+Park,35,151.31,42.42
+Park,36,20.63,111.94
+Park,37,77.66,165.48
+Park,38,165.58,65.09
+Park,39,104.49,179.41
+Park,40,107.85,83.47
+Park,41,122.59,115.84
+Park,42,127.93,196.7
+Park,43,39.86,168.24
+Park,44,90.79,128.17
+Park,45,118.09,78.68
+Park,46,5.8,163.77
+Park,47,37.91,170.46
+Park,48,29.93,93.9
+Park,49,162.8,88.64
+Park,50,51.48,9.03
+Park,51,22.05,140.45
+Park,52,10.7,23.27
+Park,53,143.91,11.56
+Park,54,60.76,104.55
+Park,55,45.25,120.54
+Park,56,191.69,7.94
+Park,57,31.06,160.58
+Park,58,18.18,59.64
+Park,59,111.1,138.28
+Park,60,32.98,53.84
+Park,61,167.26,102.16
+Park,62,32.74,72.63
+Park,63,36.62,56.86
+Park,64,74.03,107.2
+Park,65,135.55,71.67
+Park,66,102.29,15.85
+Park,67,127.93,98.82
+Park,68,61.42,182.14
+Park,69,105.14,104.67
+Park,70,52.79,28.29
+Park,71,107.49,186.24
+Park,72,82.92,197.55
+Park,73,86.99,197.86
+Park,74,132.71,77.33
+Park,75,152.28,170.29
+Hotel,1,84.62,74.91
+Hotel,2,109.74,4.88
+Hotel,3,164.59,20.36
+Hotel,4,40.04,176.35
+Hotel,5,157,17.18
+Hotel,6,34.98,134.24
+Hotel,7,173.54,66
+Hotel,8,92.15,36.69
+Hotel,9,9.43,192.93
+Hotel,10,119.35,140.12
+Hotel,11,20.22,8.77
+Hotel,12,64.1,25.43
+Hotel,13,169.43,93.4
+Hotel,14,12.83,183.1
+Hotel,1,22.82,4.02
+Hotel,2,79.41,101.3
+Hotel,3,25.99,63.38
+Hotel,4,157.49,182.12
+Hotel,5,37.33,140.8
+Hotel,6,70.46,119.21
+Hotel,7,195.96,97.36
+Hotel,8,144.97,171
+Hotel,9,73.22,108.96
+Hotel,10,68.69,157.95
+Hotel,11,187.65,127.11
+Hotel,12,183.15,132.79
+Hotel,13,155.25,13.19
+Hotel,14,156.39,35.73
+Hotel,15,49.46,1.37
+Hotel,16,35.24,135.76
+Hotel,17,11.31,62.64
+Hotel,18,152.99,22.84
+Hotel,19,157.47,43.92
+Hotel,20,141.58,126.06
+Hotel,21,24.55,176
+Hotel,22,41.42,163.2
+Hotel,23,42.38,39.03
+Hotel,24,133.16,0.37
+Hotel,25,7.13,132.21
+Hotel,26,40.77,138.12
+Hotel,27,86.39,46
+Hotel,28,124.38,95.71
+Hotel,29,20.87,146.62
+Hotel,30,146.05,12.8
+Hotel,31,106.98,121.76
+Hotel,32,132.66,35.96
+Hotel,33,105.56,134.7
+Hotel,34,107.9,133.32
+Hotel,35,144.37,122.13
+Hotel,36,13.53,29.3
+Hotel,37,167.38,142.63
+Hotel,38,133.4,11.65
+Hotel,39,85.69,19.95
+Hotel,40,90.41,116.23
+Hotel,41,80.04,156.03
+Hotel,42,28.61,117.25
+Hotel,43,160.6,97.12
+Hotel,44,49.37,165.31
+Hotel,45,138.26,57.27
+Hotel,46,1.97,10.85
+Hotel,47,97.87,128.78
+Hotel,48,19.07,102.79
+Hotel,49,43.34,5.46
+Hotel,50,57.65,107.68
+Hotel,51,131.13,199.84
+Hotel,52,55.99,84.99
+Hotel,53,118.68,11.47
+Hotel,54,170.74,143.75
+Hotel,55,112.6,112.73
+Hotel,56,10.03,0.92
+Hotel,57,56.21,29.82
+Museum,1,53.15,85.87
+Museum,2,162.19,62
+Museum,3,61.67,68.41
+Museum,4,19.9,125.08
+Museum,5,37.89,146.83
+Museum,6,196.26,94.15
+Museum,7,166.65,82.95
+Museum,8,99.67,194.84
+Museum,9,112.87,168.99
+Museum,10,117.59,187.66
+Museum,11,0.04,57.67
+Museum,12,48.24,111.71
+Museum,13,64.95,12.86
+Museum,14,195.67,56.79
+Museum,15,193.57,20.38
+Museum,16,99.53,23.23
+Museum,17,47.47,42.1
+Museum,18,142.05,137.68
+Museum,19,84.87,124.9
+Museum,20,56.75,186.38
+Museum,21,70.35,115.11
+Museum,22,181.39,108.03
+Museum,23,130.02,32.35
+Museum,24,154.09,19.55
+Museum,25,77.84,16.05
+Museum,26,199.41,37.98
+Museum,27,194.57,163.59
+Museum,28,193.75,195.48
+Museum,29,37.63,50.48
+Museum,30,197.04,48.81
+Museum,31,72.74,163.12
+Museum,32,131.5,17.52
+Museum,33,47.3,173.02
+Museum,34,46.68,124.56
+Museum,35,140.9,161.99
+Museum,36,109.98,187.98
+Museum,37,112.24,131.21
+Museum,38,117.31,84.93
+Museum,39,76.28,140.22
+Museum,40,181.69,32.6
+Museum,41,58.76,176.12
+Museum,42,178.94,177.53
+Museum,43,20.97,61.56
+Museum,44,28.67,83.88
+Museum,45,48.34,146.57
+Museum,46,100.05,34.39
+Museum,47,127.85,7.94
+Museum,48,113.64,107.24
+Museum,49,183.61,163.87
+Museum,50,60.73,157
+Museum,51,185.67,29.54
+Museum,52,78.64,115.86
+Museum,53,106.07,11.43
+Museum,54,125.74,63.36
+Museum,55,46.28,108.82
+Museum,56,119.2,97.41
+Museum,57,68.79,164.44
+Museum,58,190.05,96.61
+Museum,59,184.17,153.98
+Museum,60,196.54,185.74
+Museum,61,144.36,162.8
+Museum,62,76.21,194.33
+Museum,63,61.93,75.59
+Museum,64,60.12,104.3
+Museum,65,17.57,10.07
+Museum,66,101.32,112.41
+Museum,67,79.49,24.69
+Museum,68,46.93,29.23
+Museum,69,97.48,63.08
+Museum,70,71.46,9.54
+Museum,71,135.82,165.31
+Museum,72,37.6,139.52
+Museum,73,27.37,2.64
+Museum,74,165.6,163.42
+Museum,75,17.89,17.03
+Museum,76,123.06,29.63
+Museum,77,167.33,74.99
+Museum,78,12.64,22.87
+Museum,79,153.32,84.31
+Museum,80,53.93,30.48
+Museum,81,151.3,21.43
+Museum,82,45.79,36.21
+Museum,83,7.5,6.78
+Museum,84,17.93,44.11
+Museum,85,117.5,160.83
+Museum,86,199.13,121.09
+Museum,87,82.52,187
+Museum,88,49.92,179.05
+Museum,89,125.19,136.69
+Museum,90,166.96,59.29
+Museum,91,109.99,96.71
+Museum,92,86.42,0.54
+Museum,93,87.01,71.69
+Museum,94,145.09,4.5
+Museum,95,12.04,24.06
+Museum,96,75.9,13.18
+Police Station,1,191.35,14.98
+Police Station,2,131.86,158.41
+Police Station,3,123.08,111.42
+Police Station,4,137.35,130.85
+Police Station,5,118.23,70.45
+Police Station,6,31.73,79.11
+Police Station,7,189.07,114.31
+Police Station,8,152.49,129.15
+Police Station,9,176.67,85.02
+Police Station,10,66.93,5.49
+Police Station,11,167.48,176.01
+Police Station,12,167.3,19.07
+Police Station,13,50.77,132.65
+Police Station,14,139.23,109.42
+Police Station,15,0.04,31.78
+Police Station,16,18.11,155.71
+Police Station,17,149.16,109.77
+Police Station,18,55.49,6.59
+Police Station,19,41.3,133.48
+Police Station,20,85.86,22.57
+Police Station,21,17.84,78.58
+Police Station,22,145.37,74.92
+Police Station,23,62.61,148.34
+Police Station,24,166.66,31.05
+Police Station,25,80.27,106.35
+Police Station,26,54.59,97.89
+Police Station,27,179.47,74.14
+Police Station,28,115.38,15.34
+Police Station,29,47.69,112.79
+Police Station,30,107.64,190.42
+Police Station,31,172.19,27.93
+Police Station,32,130.81,86.45
+Police Station,33,52.34,76.02
+Police Station,34,129.95,79.3
+Police Station,35,58.82,145.9
+Police Station,36,87.85,43.18
+Police Station,37,199.16,44.35
+Police Station,38,187.66,88.9
+Police Station,39,30.64,92.38
+Police Station,40,156.45,102.43
+Police Station,41,166,108.18
+Police Station,42,29.14,93.69
+Police Station,43,177.2,120.22
+Restaurant,1,83.48,167.72
+Restaurant,2,44.97,22.69
+Restaurant,3,97.35,73.44
+Restaurant,4,82.32,68.03
+Restaurant,5,38.46,152.86
+Restaurant,6,122.05,69.09
+Restaurant,7,137.35,68.55
+Restaurant,8,54.37,18.69
+Restaurant,9,152.53,29.03
+Restaurant,10,166.49,17.38
+Restaurant,11,12.43,188.24
+Restaurant,12,113.33,90.64
+Restaurant,13,174.65,12.52
+Restaurant,14,34.94,77.84
+Restaurant,15,137.68,39.38
+Restaurant,16,163.83,110.7
+Restaurant,17,83.63,21.55
+Restaurant,18,131.12,52.53
+Restaurant,19,12.26,5.87
+Restaurant,20,171.93,46.7
+Restaurant,21,116.16,54.22
+Restaurant,22,121.36,52.85
+Restaurant,23,17.67,25.67
+Restaurant,24,175.03,38.72
+Restaurant,25,148.56,99.88
+Restaurant,26,158.04,137.83
+Restaurant,27,102.75,81.17
+Restaurant,28,63.12,95.25
+Restaurant,29,54.39,154.33
+Restaurant,30,48.04,84.83
+Restaurant,31,38.49,4.48
+Restaurant,32,130.34,199.08
+Restaurant,33,189.03,11.35
+Restaurant,34,185.46,115.8
+Restaurant,35,137.43,1.84
+Restaurant,36,6.43,146.66
+Restaurant,37,57.1,119.79
+Restaurant,38,101.22,158.21
+Restaurant,39,66.88,60.49
+Shopping Mall,1,21.68,96.83
+Shopping Mall,2,14.64,119.11
+Shopping Mall,3,158.75,116.45
+Shopping Mall,4,199.77,73.8
+Shopping Mall,5,118.79,76.48
+Shopping Mall,6,157.53,54.06
+Shopping Mall,7,159.77,99.91
+Shopping Mall,8,107.19,152.99
+Shopping Mall,9,16.32,145.05
+Shopping Mall,10,115.83,35.21
+Shopping Mall,11,179.87,106.58
+Shopping Mall,12,32.39,197.99
+Shopping Mall,13,160.47,132.31
+Shopping Mall,14,178.51,130.47
+Shopping Mall,15,144.15,50.78
+Shopping Mall,16,82.4,43.19
+Shopping Mall,17,185.32,89.22
+Shopping Mall,18,44.55,121.43
+Shopping Mall,19,168.7,14.46
+Shopping Mall,20,1.03,82.9
+Shopping Mall,21,63.64,17.69
+Shopping Mall,22,85.34,19.74
+Shopping Mall,23,150.26,141.67
+Shopping Mall,24,187.6,50.23
+Shopping Mall,25,150.99,190.18
+Shopping Mall,26,13.22,197.74
+Shopping Mall,27,87.65,191.73
+Shopping Mall,28,184.75,115.11
+Shopping Mall,29,64.45,16.64
+Shopping Mall,30,158.64,26.44
+Shopping Mall,31,137.94,69.29
+Shopping Mall,32,129.65,68.01
+Shopping Mall,33,194.08,114.34
+Shopping Mall,34,68.73,70.55
+Shopping Mall,35,55.35,185.75
+Shopping Mall,36,184.3,1.86
+Shopping Mall,37,144.02,32.93
+Shopping Mall,38,171.57,162.18
+Shopping Mall,39,21.24,12.65
+Shopping Mall,40,47.73,18.81
+Shopping Mall,41,144.72,128.28
+Shopping Mall,42,179.48,153.97
+Shopping Mall,43,37.57,84.66
+Shopping Mall,44,155.53,193.6
+Shopping Mall,45,104.48,129.45
+Shopping Mall,46,56.99,152.05
+Shopping Mall,47,55.82,174.59
+Shopping Mall,48,144.95,194.35
+Shopping Mall,49,88.04,17.33
+Shopping Mall,50,25.66,35.92
+Shopping Mall,51,72.93,117.05
+Shopping Mall,52,194.88,165.24
+Shopping Mall,53,5.89,11.36
+Shopping Mall,54,53.72,54.72
+Shopping Mall,55,20.16,22.57
+Shopping Mall,56,93.87,51.8
+Shopping Mall,57,168.91,139.83
+Shopping Mall,58,81.72,9.67
+Shopping Mall,59,89.81,175.68
+Shopping Mall,60,30.44,109.42
+Shopping Mall,61,158.81,75.13
+Shopping Mall,62,166.07,125.91
+Shopping Mall,63,128.76,32.24
+Shopping Mall,64,146.04,169.43
+Shopping Mall,65,87.98,177.22
+Shopping Mall,66,74.14,3.91
+Shopping Mall,67,186.99,11.81
+Shopping Mall,68,145.87,27.67
+Shopping Mall,69,133.4,14.24
+Shopping Mall,70,148.08,26.21
+Shopping Mall,71,30.93,100.81
+Shopping Mall,72,173.44,81.91
+Shopping Mall,73,35.58,5.19
+Shopping Mall,74,183.14,115.99
+Shopping Mall,75,92.87,135.29
+Shopping Mall,76,104.54,112.36
+Shopping Mall,77,186.88,116.24
+Shopping Mall,78,77.11,197.8
+Shopping Mall,79,150.98,68.97
+Shopping Mall,80,36.48,173.65
+Shopping Mall,81,65.31,84.3
+Shopping Mall,82,166.75,42.94
+Insurance,1,159.88,25.94
+Insurance,2,184.3,15.53
+Insurance,3,20.16,159.47
+Insurance,4,117.21,79.57
+Insurance,5,199.13,0.1
+Insurance,6,193.01,39.02
+Insurance,7,182.19,131.26
+Insurance,8,160.01,87.3
+Insurance,9,80.12,61.08
+Insurance,10,65.17,53.04
+Insurance,11,147.3,24.91
+Insurance,12,151.44,105.35
+Insurance,13,146.3,52.11
+Insurance,14,122.07,183.1
+Insurance,15,150.62,62.19
+Insurance,16,0.98,175.67
+Insurance,17,87.02,156.9
+Insurance,18,157.99,190.34
+Insurance,19,125.13,23.05
+Insurance,20,30.14,119.09
+Insurance,21,11.13,181.15
+Insurance,22,49.32,186.63
+Insurance,23,82.85,57.66
+Insurance,24,0.16,61.74
+Insurance,25,153.42,80.49
+Insurance,26,68.4,57.66
+Insurance,27,72.56,102.28
+Insurance,28,106.37,134.97
+Insurance,29,74.5,78.96
+Art Gallery,1,52.02,178.68
+Art Gallery,2,97.42,79.81
+Art Gallery,3,194.43,121.48
+Art Gallery,4,62.18,16.75
+Art Gallery,5,119.36,82.51
+Art Gallery,6,83.32,29
+Art Gallery,7,130.47,85.5
+Art Gallery,8,61.89,176.84
+Art Gallery,9,55.98,5.09
+Art Gallery,10,164.73,64.92
+Art Gallery,11,192.25,37.14
+Art Gallery,12,97.48,176.92
+Art Gallery,13,70.18,131.98
+Art Gallery,14,17.79,151.53
+Art Gallery,15,88.26,69.79
+Art Gallery,16,146.7,130.66
+Art Gallery,17,21.48,68.68
+Art Gallery,18,33.62,36.28
+Art Gallery,19,96.09,95.44
+Art Gallery,20,116.21,143.22
+Art Gallery,21,109.45,156.8
+Art Gallery,22,25.31,164.56
+Art Gallery,23,37.91,134.99
+Art Gallery,24,8.53,69.41
+Art Gallery,25,21.71,74.02
+Gym,1,98.08,155.05
+Gym,2,153.97,111.95
+Gym,3,81.57,2.49
+Gym,4,34.66,85.34
+Gym,5,79.47,123.71
+Gym,6,28.48,23.99
+Gym,7,4.61,162.62
+Gym,8,12.83,21.61
+Gym,9,143.91,177.1
+Gym,10,14.51,70.87
+Gym,11,114.73,143.25
+Gym,12,70.49,12.7
+Gym,13,132.12,171.91
+Gym,14,65.64,35.74
+Gym,15,157.08,73.59
+Gym,16,119.55,108.15
+Gym,17,188.72,24.57
+Gym,18,71.43,59.25
+Gym,19,81.57,31.63
+Gym,20,59.25,155.29
+Gym,21,158.61,144.62
+Gym,22,13.3,153.52
+Gym,23,15.44,173.65
+Gym,24,12.72,73.25
+Gym,25,155.85,170.79
+Gym,26,123.58,117.57
+Gym,27,57.47,12.83
+Gym,28,27.99,154.83
+Gym,29,84.56,141.27
+Gym,30,179.84,109.66
+Gym,31,136.85,198.93
+Gym,32,128.26,5.88
+Gym,33,4.16,120.33
+Gym,34,35.27,180.04
+Gym,35,91.19,153.58
+Gym,36,140.03,112.28
+Gym,37,117.85,59.22
+Gym,38,112.26,170.11
+Gym,39,129.95,116.97
+Gym,40,197.26,158.46
+Gym,41,159.19,192.39
+Gym,42,79.88,186.29
+Gym,43,150.01,1.98
+Gym,44,50.68,175.88
+Gym,45,196.58,116.6
+Gym,46,174.69,140.3
+Gym,47,51.8,149.59
+Gym,48,18.44,159.68
+Gym,49,16.36,7.42
+Gym,50,149.36,95.1
+Gym,51,138.38,32.68
+Gym,52,182.06,2.28
+Gym,53,30.75,11.3
+Gym,54,199.72,198.25
+Gym,55,100.57,57.88
+Gym,56,24.87,167.59
+Gym,57,144.01,21.37
+Gym,58,150.47,144.46
+Gym,59,119.04,141.96
+Gym,60,55.87,2.18
+Gym,61,69.65,59.39
+Gym,62,183.46,174.59
+Gym,63,178.89,199.73
+Gym,64,60.48,168.27
+Gym,65,40.78,152.58
+Gym,66,153.75,122.54
+Gym,67,167.61,102.16
+Gym,68,20.08,126.5
+Gym,69,10.34,77.61
+Gym,70,155.54,138.71
+Gym,71,2.27,52.44
+Gym,72,75.31,138.7
+Coffee Shop,1,82.35,60.53
+Coffee Shop,2,180.2,40.51
+Coffee Shop,3,30.11,126.51
+Coffee Shop,4,124.59,159.7
+Coffee Shop,5,119.92,88.54
+Coffee Shop,6,9.12,3.94
+Coffee Shop,7,101.17,71.1
+Coffee Shop,8,16.58,0.68
+Coffee Shop,9,95.63,65.13
+Coffee Shop,10,13.63,94.64
+Coffee Shop,11,4.64,167.71
+Coffee Shop,12,162.57,155.84
+Coffee Shop,13,179.88,131.64
+Coffee Shop,14,57.06,172.58
+Coffee Shop,15,32.37,88.79
+Coffee Shop,16,10.99,18.13
+Coffee Shop,17,57.64,48.14
+Coffee Shop,18,22.68,151.12
+Coffee Shop,19,23.49,176.42
+Coffee Shop,20,31.39,3.55
+Coffee Shop,21,155.25,95.91
+Coffee Shop,22,165.27,109.38
+Coffee Shop,23,125.55,128.31
+Coffee Shop,24,29.47,88.59
+Coffee Shop,25,92.43,157.86
+Coffee Shop,26,130.48,197.45
+Coffee Shop,27,104.01,26.9
+Coffee Shop,28,123.49,114.64
+Coffee Shop,29,97.97,24.36
+Coffee Shop,30,60.63,98.47
+Coffee Shop,31,69.45,152.01
+Coffee Shop,32,127.33,31.13
+Coffee Shop,33,77.55,190.99
+Coffee Shop,34,146.3,53.03
+Coffee Shop,35,48.41,65.46
+Coffee Shop,36,177.19,119.22
+Coffee Shop,37,33.74,10.08
+Coffee Shop,38,139.39,108.74
+Coffee Shop,39,2.43,53.19
+Coffee Shop,40,30.29,51.57
+Coffee Shop,41,102.17,168.47
+Coffee Shop,42,80.15,74.51
+Coffee Shop,43,158.31,13.53
+Coffee Shop,44,114.12,30.74
+Coffee Shop,45,124.64,108.04
+Coffee Shop,46,53.16,199.13
+Coffee Shop,47,115.78,132.92
+Coffee Shop,48,134.1,3.24
+Coffee Shop,49,168.58,134.15
+Coffee Shop,50,31.83,134.56
+Coffee Shop,51,182.02,176.44
+Coffee Shop,52,40.18,26.97
+Coffee Shop,53,180.66,11.26
+Coffee Shop,54,163.71,93.93
+Coffee Shop,55,87.51,14.75
+Coffee Shop,56,112.21,44.78
+Coffee Shop,57,194.07,9.07
+Coffee Shop,58,196.3,100.98
+Coffee Shop,59,71.86,52.81
+Coffee Shop,60,72.82,64.02
+Coffee Shop,61,76.88,115.56
+Coffee Shop,62,128.39,140.37
+Coffee Shop,63,12.3,178.06
+Coffee Shop,64,3.44,100.83
+Coffee Shop,65,75.99,136.15
+Theater,1,174.48,13.28
+Theater,2,93.31,104.79
+Theater,3,4.38,88.52
+Theater,4,69.56,96.88
+Theater,5,40.14,170.95
+Theater,6,99.44,193.92
+Theater,7,49.45,25.34
+Theater,8,118.46,90.22
+Theater,9,71.5,9.15
+Theater,10,113.19,106.53
+Theater,11,49.6,179.93
+Theater,12,108.6,27.41
+Theater,13,103.76,11.5
+Theater,14,152.77,141
+Theater,15,170.01,96.39
+Theater,16,156.71,173.12
+Theater,17,192.11,159.92
+Theater,18,98.31,197.06
+Theater,19,194.45,48.81
+Theater,20,117.46,27.68
+Theater,21,53.57,71.55
+Theater,22,141.26,87.31
+Theater,23,80.61,5.64
+Theater,24,37.85,96.26
+Theater,25,160.72,151.39
+Theater,26,33.94,37.4
+Theater,27,27.28,33.94
+Theater,28,71.24,194.55
+Theater,29,104.67,65.9
+Theater,30,1.03,192.88
+Theater,31,135.75,128.56
+Theater,32,126.86,143.75
+Theater,33,14.25,126.32
+Theater,34,1.81,89.53
+Theater,35,127.03,121.4
+Theater,36,95.77,22.69
+Theater,37,91.69,85.51
+Theater,38,52.95,178.05
+Theater,39,38.67,21.3
+Theater,40,146.8,98.12
+Theater,41,173.66,56.51
+Theater,42,180.29,18.62
+Theater,43,62.46,119.31
+Theater,44,145.83,158.17
+Theater,45,88.68,103.76
+Theater,46,92.39,128.55
+Theater,47,47.77,124.58
+Theater,48,91.92,125.02
+Theater,49,144.69,197.51
+Theater,50,73.06,154.29
+Theater,51,3.83,148.32
+Theater,52,169.23,39.31
+Theater,53,55.62,11.25
+Theater,54,145.71,141.77
+Theater,55,180.98,93.19
+Theater,56,155.88,83.38
+Theater,57,119.1,102.92
+Theater,58,19.22,79.24
+Theater,59,148.27,108.24
+Theater,60,81.29,94.94
+Theater,61,180.49,43.64
+Bank,1,4.81,95.13
+Bank,2,176.09,65.49
+Bank,3,40.06,93.55
+Bank,4,131.97,39.83
+Zoo,1,96.95,47.87
+Zoo,2,89.2,129.77
+Zoo,3,14.33,55.56
+Zoo,4,76.94,177.01
+Zoo,5,160.93,59.39
+Zoo,6,115.55,158.84
+Zoo,7,168.42,165.17
+Zoo,8,175.04,3.6
+Zoo,9,87.01,13.2
+Zoo,10,61.65,148.13
+Zoo,11,106.94,122.72
+Zoo,12,119.73,77.91
+Zoo,13,137.34,91.03
+Zoo,14,87.76,130.48
+Zoo,15,51.77,123
+Zoo,16,166.72,15.57
+Zoo,17,162.73,51.15
+Zoo,18,163,157.84
+Zoo,19,92.8,2.17
+Zoo,20,118.7,112.13
+Zoo,21,197.7,186.3
+Zoo,22,57.22,10.06
+Zoo,23,123.32,76.29
+Zoo,24,67.16,123.11
+Zoo,25,99.72,28.76
+Zoo,26,96.02,177.19
+Zoo,27,58.73,158.56
+Zoo,28,88.36,174.22
+Zoo,29,128.14,11.29
+Zoo,30,192.43,123.3
+Zoo,31,167.81,146.46
+Zoo,32,125.24,37.93
+Zoo,33,92.68,99.98
+Zoo,34,196.11,117.27
+Zoo,35,2.17,17.2
+Zoo,36,110.8,84.84
+Zoo,37,94.49,149.52
+Zoo,38,150.43,120.64
+Zoo,39,65.51,109.67
+Zoo,40,154.59,61.05
+Zoo,41,23.87,164.64
+Zoo,42,30.76,23.01
+Zoo,43,26.98,189.52
+Zoo,44,156.84,4.17
+Zoo,45,162.79,188.78
+Zoo,46,29.71,81.5
+Zoo,47,9.75,195.41
+Zoo,48,144.32,51.24
+Zoo,49,61.06,19.28
+Zoo,50,117.38,23.34
+Zoo,51,80.19,149.89
+Zoo,52,120.94,82.52
+Zoo,53,117.96,11.18
+Zoo,54,82.7,109.21
+Zoo,55,8.13,167.72
+Zoo,56,108.72,18.47
+Zoo,57,56.71,131.38
+Zoo,58,99.43,3.16
+Zoo,59,115.71,102.23
+Zoo,60,10.95,103.15
+Zoo,61,143.14,191.94
+Zoo,62,154.47,13.39
+Zoo,63,187.49,29.3
+Zoo,64,75.09,99.09
+Zoo,65,5.2,99.19
+Zoo,66,59.58,46.22
+Zoo,67,192.29,131.25
+Zoo,68,180.86,73.98
+Zoo,69,43.7,148.23
+Zoo,70,105.05,15.79
+Zoo,71,106.83,47.63
+Zoo,72,196.04,195.08
+Zoo,73,80.06,11.24
+Zoo,74,24.8,78.36
+Zoo,75,95.97,141.16
+Zoo,76,135.53,158.83
+Zoo,77,8.33,14.22
+Zoo,78,80.2,88.25
+Zoo,79,195.42,107.55
+Zoo,80,95.03,88.66
+Zoo,81,136.09,183.61
+Zoo,82,104.02,108.94
+Zoo,83,108.14,62.49
+Zoo,84,26.17,125.46
+Zoo,85,150.52,25.46
+Zoo,86,159.46,167.47
+Zoo,87,197.18,195.16
+Zoo,88,196.33,95.51
+Zoo,89,195.9,159.4
+Zoo,90,133.33,176.25
+Zoo,91,4.5,196.73
+Zoo,92,3.11,64.04
+Zoo,93,163.65,100.74
+Zoo,94,37.89,178.07
+Zoo,95,51.04,92.61
+Zoo,96,78.56,136.15
+Zoo,97,53.2,16.39
+Historical Monument,1,35.15,176.98
+Historical Monument,2,58.87,26.19
+Historical Monument,3,75.73,98.58
+Historical Monument,4,194.39,182.78
+Historical Monument,5,41.27,183.01
+Historical Monument,6,151.03,143.8
+Historical Monument,7,190.84,196.53
+Historical Monument,8,27.86,137.91
+Historical Monument,9,150.81,129.22
+Historical Monument,10,10.99,165.96
+Historical Monument,11,74.38,41.06
+Historical Monument,12,38.78,185.26
+Historical Monument,13,123.16,10.82
+Historical Monument,14,31.32,183.11
+Historical Monument,15,58.23,134.4
+Historical Monument,16,85.29,148.06
+Historical Monument,17,64.42,118.83
+Historical Monument,18,76.44,26.75
+Historical Monument,19,49.24,10.76
+Historical Monument,20,147.81,148.33
+Historical Monument,21,145.18,149.77
+Historical Monument,22,21.2,176.95
+Historical Monument,23,55.91,192.29
+Historical Monument,24,79.72,134.62
+Historical Monument,25,102.15,119.06
+Historical Monument,26,151.2,37.11
+Historical Monument,27,43.64,69.11
+Historical Monument,28,9.98,194.08
+Historical Monument,29,138.19,73.61
+Historical Monument,30,103.03,64.91
+Historical Monument,31,67.26,11.28
+Historical Monument,32,124.54,106.87
+Historical Monument,33,97.72,2.97
+Historical Monument,34,79.38,72.01
+Historical Monument,35,120.09,1.11
+Historical Monument,36,88.67,140.05
+Historical Monument,37,181.41,62.66
+Historical Monument,38,20.77,124.61
+Historical Monument,39,19.87,61.83
+Historical Monument,40,129.35,130.87
+Historical Monument,41,131.1,96.7
+Historical Monument,42,80.96,139.17
+Historical Monument,43,183.2,48.19
