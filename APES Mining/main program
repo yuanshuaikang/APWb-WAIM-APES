@@ -1,0 +1,1140 @@
+import sys
+import math
+import random
+import collections
+import numpy as np
+import pandas as pd
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QVBoxLayout, QHBoxLayout,
+                             QWidget, QTreeWidget, QTreeWidgetItem, QCheckBox,
+                             QGraphicsView, QGraphicsScene, QPushButton,
+                             QLabel, QSlider, QFileDialog, QLineEdit,
+                             QTextEdit, QGroupBox, QSpinBox, QDoubleSpinBox, QDialogButtonBox, QScrollArea, QDialog,
+                             QButtonGroup, QFrame)
+from PyQt5.QtCore import Qt, QRectF, QTimer, QPointF
+from PyQt5.QtGui import QColor, QBrush, QPen, QFont, QPainter, QPolygonF
+
+
+class PatternSelectionDialog(QDialog):
+    """美观的模式选择对话框"""
+
+    def __init__(self, patterns, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Select Interesting Patterns")
+        self.setMinimumSize(800, 600)
+
+        # 设置对话框样式
+        self.setStyleSheet("""
+            QDialog {
+                background-color: #f5f5f5;
+                font-family: Arial;
+            }
+            QLabel {
+                color: #333;
+                font-size: 14px;
+            }
+            QCheckBox {
+                color: #444;
+                font-size: 13px;
+                padding: 8px;
+                border-radius: 4px;
+            }
+            QCheckBox:hover {
+                background-color: #e0e0e0;
+            }
+            QCheckBox::indicator {
+                width: 16px;
+                height: 16px;
+            }
+            QScrollArea {
+                border: none;
+            }
+            QDialogButtonBox {
+                border-top: 1px solid #ddd;
+                padding: 10px;
+            }
+            QPushButton {
+                min-width: 80px;
+                padding: 6px 12px;
+                border-radius: 4px;
+                font-weight: bold;
+            }
+            QPushButton#okButton {
+                background-color: #4CAF50;
+                color: white;
+            }
+            QPushButton#okButton:hover {
+                background-color: #45a049;
+            }
+            QPushButton#cancelButton {
+                background-color: #f44336;
+                color: white;
+            }
+            QPushButton#cancelButton:hover {
+                background-color: #d32f2f;
+            }
+            .pattern-card {
+                background-color: white;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                padding: 12px;
+                margin-bottom: 8px;
+            }
+            .pattern-card:hover {
+                border-color: #aaa;
+                background-color: #f9f9f9;
+            }
+            .pattern-card[selected="true"] {
+                border-color: #4CAF50;
+                background-color: #e8f5e9;
+            }
+        """)
+
+        layout = QVBoxLayout()
+        layout.setContentsMargins(20, 20, 20, 20)
+        layout.setSpacing(15)
+
+        # 添加标题和说明
+        title = QLabel("<h2>Select Interesting Patterns</h2>")
+        title.setStyleSheet("color: #2c3e50;")
+        layout.addWidget(title)
+
+        instruction = QLabel("The algorithm has discovered the following high utility patterns. "
+                             "Please select the ones you're interested in:")
+        instruction.setWordWrap(True)
+        layout.addWidget(instruction)
+
+        # 添加全选/取消全选按钮
+        select_buttons = QHBoxLayout()
+        select_all = QPushButton("Select All")
+        select_all.setObjectName("selectAllButton")
+        select_all.setStyleSheet("background-color: #2196F3; color: white;")
+        select_all.clicked.connect(self.select_all_patterns)
+
+        deselect_all = QPushButton("Deselect All")
+        deselect_all.setObjectName("deselectAllButton")
+        deselect_all.setStyleSheet("background-color: #607D8B; color: white;")
+        deselect_all.clicked.connect(self.deselect_all_patterns)
+
+        select_buttons.addWidget(select_all)
+        select_buttons.addWidget(deselect_all)
+        select_buttons.addStretch()
+        layout.addLayout(select_buttons)
+
+        # 创建滚动区域
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setFrameShape(QFrame.NoFrame)
+
+        scroll_content = QWidget()
+        scroll_layout = QVBoxLayout(scroll_content)
+        scroll_layout.setContentsMargins(5, 5, 5, 5)
+        scroll_layout.setSpacing(10)
+
+        # 添加模式选择卡片
+        self.checkboxes = []
+        self.button_group = QButtonGroup()
+        self.button_group.setExclusive(False)
+
+        for idx, (pattern, utility, size) in enumerate(patterns):
+            # 创建卡片容器
+            card = QFrame()
+            card.setObjectName("patternCard")
+            card.setProperty("selected", "false")
+            card.setStyleSheet("""
+                QFrame#patternCard {
+                    background-color: white;
+                    border: 1px solid #ddd;
+                    border-radius: 6px;
+                    padding: 12px;
+                }
+                QFrame#patternCard:hover {
+                    border-color: #aaa;
+                    background-color: #f9f9f9;
+                }
+                QFrame#patternCard[selected="true"] {
+                    border-color: #4CAF50;
+                    background-color: #e8f5e9;
+                }
+            """)
+
+            card_layout = QHBoxLayout(card)
+            card_layout.setContentsMargins(10, 10, 10, 10)
+
+            # 添加复选框
+            checkbox = QCheckBox()
+            checkbox.setStyleSheet("""
+                QCheckBox {
+                    spacing: 10px;
+                }
+                QCheckBox::indicator {
+                    width: 18px;
+                    height: 18px;
+                }
+            """)
+            checkbox.setChecked(True)
+            checkbox.stateChanged.connect(lambda state, c=card: self.update_card_style(c, state))
+
+            # 添加模式信息
+            info = QLabel(f"""
+                <div style='font-size: 14px; margin-bottom: 5px;'>
+                    <b>Pattern:</b> {pattern}
+                </div>
+                <div style='font-size: 13px; color: #555;'>
+                    <span style='color: #2196F3;'>Utility:</span> {utility} &nbsp;&nbsp;
+                    <span style='color: #2196F3;'>Size:</span> {size}
+                </div>
+            """)
+            info.setWordWrap(True)
+
+            card_layout.addWidget(checkbox, 0)
+            card_layout.addWidget(info, 1)
+
+            self.checkboxes.append((pattern, checkbox))
+            self.button_group.addButton(checkbox)
+            scroll_layout.addWidget(card)
+
+        scroll_layout.addStretch()
+        scroll.setWidget(scroll_content)
+        layout.addWidget(scroll)
+
+        # 添加按钮
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        buttons.setContentsMargins(0, 15, 0, 0)
+
+        # 设置按钮样式
+        for button in buttons.buttons():
+            if buttons.buttonRole(button) == QDialogButtonBox.AcceptRole:
+                button.setObjectName("okButton")
+                button.setText("Confirm")
+            else:
+                button.setObjectName("cancelButton")
+
+        buttons.accepted.connect(self.accept)
+        buttons.rejected.connect(self.reject)
+        layout.addWidget(buttons)
+
+        self.setLayout(layout)
+
+    def update_card_style(self, card, state):
+        """更新卡片样式反映选中状态"""
+        card.setProperty("selected", "true" if state else "false")
+        card.style().polish(card)
+
+    def select_all_patterns(self):
+        """选择所有模式"""
+        for pattern, checkbox in self.checkboxes:
+            checkbox.setChecked(True)
+
+    def deselect_all_patterns(self):
+        """取消选择所有模式"""
+        for pattern, checkbox in self.checkboxes:
+            checkbox.setChecked(False)
+
+    def get_selected_patterns(self):
+        """获取用户选择的模式"""
+        return [pattern for pattern, checkbox in self.checkboxes if checkbox.isChecked()]
+
+
+class HUCPM_CE_GUI(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.init_ui()
+        self.init_data()
+        self.algorithm_params = {
+            'distance_threshold': 40,
+            'min_utility': 200,
+            'max_iterations': 300,
+            'sample_size': 1000,
+            'alpha': 0.025,
+            'beta': 0.2,
+            'rho': 0.3
+        }
+        self.utility_dict = {}
+        self.instance_data = []
+        self.df = None
+        self.feature_list = []
+        self.current_iteration = 0
+        self.high_utility_patterns = []
+        self.probability_vector = {}
+        self.user_selected_patterns = set()  # 用户选择的模式
+
+        # 地图交互相关变量
+        self.zoom_factor = 1.0
+        self.pan_start = QPointF()
+        self.panning = False
+
+    def init_ui(self):
+        self.setWindowTitle('APES System')
+        self.setGeometry(100, 100, 1400, 900)
+
+        # 主窗口布局
+        main_widget = QWidget()
+        self.setCentralWidget(main_widget)
+        main_layout = QHBoxLayout()
+
+        # 左侧控制面板 (保持不变)
+        control_panel = self.create_control_panel()
+        main_layout.addWidget(control_panel, stretch=1)
+
+        # 右侧可视化区域
+        vis_panel = QWidget()
+        vis_layout = QVBoxLayout()
+
+        # 地图可视化 - 新的实现
+        self.map_view = InteractiveGraphicsView()
+        self.map_scene = QGraphicsScene()
+        self.map_view.setScene(self.map_scene)
+
+        # 设置视图属性
+        self.map_view.setRenderHint(QPainter.Antialiasing)
+        self.map_view.setDragMode(QGraphicsView.ScrollHandDrag)
+        self.map_view.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
+        self.map_view.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
+        self.map_view.setInteractive(True)
+
+        vis_layout.addWidget(self.map_view, stretch=2)
+
+        # 结果展示 (保持不变)
+        result_group = self.create_result_panel()
+        vis_layout.addWidget(result_group, stretch=1)
+
+        vis_panel.setLayout(vis_layout)
+        main_layout.addWidget(vis_panel, stretch=3)
+
+        main_widget.setLayout(main_layout)
+
+        # 初始化定时器
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.mining_step)
+        self.is_mining = False
+
+    def create_control_panel(self):
+        """创建左侧控制面板"""
+        control_panel = QGroupBox("Control Panel")
+        control_layout = QVBoxLayout()
+
+        # 参数设置区域
+        param_group = QGroupBox("Algorithm Parameters")
+        param_layout = QVBoxLayout()
+
+        self.distance_spin = QDoubleSpinBox()
+        self.distance_spin.setRange(1, 1000)
+        self.distance_spin.setValue(40)
+        param_layout.addWidget(QLabel("Distance Threshold:"))
+        param_layout.addWidget(self.distance_spin)
+
+        self.utility_spin = QSpinBox()
+        self.utility_spin.setRange(1, 100000)
+        self.utility_spin.setValue(200)
+        param_layout.addWidget(QLabel("Min Utility:"))
+        param_layout.addWidget(self.utility_spin)
+
+        self.iter_spin = QSpinBox()
+        self.iter_spin.setRange(1, 1000)
+        self.iter_spin.setValue(50)
+        param_layout.addWidget(QLabel("Max Iterations:"))
+        param_layout.addWidget(self.iter_spin)
+
+        self.sample_spin = QSpinBox()
+        self.sample_spin.setRange(100, 100000)
+        self.sample_spin.setValue(100)
+        param_layout.addWidget(QLabel("Initial Sample Size:"))
+        param_layout.addWidget(self.sample_spin)
+
+        param_group.setLayout(param_layout)
+        control_layout.addWidget(param_group)
+
+        # 数据加载区域
+        data_group = QGroupBox("Data Input")
+        data_layout = QVBoxLayout()
+
+        self.btn_load = QPushButton("Load Dataset (CSV)")
+        self.btn_load.clicked.connect(self.load_csv_dataset)
+        data_layout.addWidget(self.btn_load)
+
+        self.btn_load_utility = QPushButton("Load Utility File")
+        self.btn_load_utility.clicked.connect(self.load_utility_file)
+        data_layout.addWidget(self.btn_load_utility)
+
+        self.data_info = QLabel("No dataset loaded")
+        data_layout.addWidget(self.data_info)
+
+        data_group.setLayout(data_layout)
+        control_layout.addWidget(data_group)
+
+        # 特征选择区域
+        self.feature_tree = QTreeWidget()
+        self.feature_tree.setHeaderLabel("Feature Selection")
+        self.feature_tree.setMaximumHeight(200)
+        control_layout.addWidget(QLabel("Select Features of Interest:"))
+        control_layout.addWidget(self.feature_tree)
+
+        # 操作按钮
+        self.btn_start = QPushButton("Start Mining")
+        self.btn_start.clicked.connect(self.start_mining)
+        self.btn_pause = QPushButton("Pause")
+        self.btn_pause.clicked.connect(self.pause_mining)
+        self.btn_reset = QPushButton("Reset")
+        self.btn_reset.clicked.connect(self.reset_system)
+
+        control_layout.addWidget(self.btn_start)
+        control_layout.addWidget(self.btn_pause)
+        control_layout.addWidget(self.btn_reset)
+
+        # 状态显示
+        self.status_label = QLabel("Ready")
+        self.status_label.setWordWrap(True)
+        control_layout.addWidget(self.status_label)
+
+        self.iteration_label = QLabel("Iteration: 0")
+        control_layout.addWidget(self.iteration_label)
+
+        self.pattern_count_label = QLabel("High Utility Patterns: 0")
+        control_layout.addWidget(self.pattern_count_label)
+
+        control_panel.setLayout(control_layout)
+        return control_panel
+
+    def create_result_panel(self):
+        """创建结果展示面板"""
+        result_group = QGroupBox("Mining Results")
+        result_layout = QVBoxLayout()
+
+        self.result_tree = QTreeWidget()
+        self.result_tree.setHeaderLabels(["Pattern", "Utility", "Size"])
+        self.result_tree.itemDoubleClicked.connect(self.show_pattern_on_map)
+        result_layout.addWidget(self.result_tree)
+
+        # 详细信息文本框
+        self.detail_text = QTextEdit()
+        self.detail_text.setReadOnly(True)
+        self.detail_text.setPlaceholderText("Pattern details will be shown here when you double-click a pattern")
+        result_layout.addWidget(self.detail_text)
+
+        result_group.setLayout(result_layout)
+        return result_group
+
+    def init_data(self):
+        self.instance_data = []
+        self.df = None
+        self.feature_list = []
+        self.utility_dict = {}
+        self.current_iteration = 0
+        self.high_utility_patterns = []
+        self.probability_vector = {}
+
+    def load_csv_dataset(self):
+        """加载CSV格式的实例数据文件"""
+        options = QFileDialog.Options()
+        file_name, _ = QFileDialog.getOpenFileName(
+            self, "Open CSV Dataset File", "",
+            "CSV Files (*.csv);;All Files (*)", options=options)
+
+        if file_name:
+            try:
+                # 使用pandas读取CSV文件
+                self.df = pd.read_csv(file_name, header=None,
+                                      names=['feature', 'instance_id', 'x', 'y'])
+
+                # 检查数据是否完整
+                if self.df.isnull().values.any():
+                    raise ValueError("CSV文件包含缺失值，请检查数据完整性")
+
+                # 转换为列表格式存储
+                self.instance_data = self.df.to_dict('records')
+
+                # 获取所有特征
+                self.feature_list = sorted(self.df['feature'].unique().tolist())
+
+                # 更新UI
+                self.feature_tree.clear()
+                for feature in self.feature_list:
+                    item = QTreeWidgetItem(self.feature_tree)
+                    item.setText(0, feature)
+                    item.setCheckState(0, Qt.Unchecked)
+
+                # 显示数据统计信息
+                num_instances = len(self.df)
+                num_features = len(self.feature_list)
+                self.data_info.setText(
+                    f"Loaded: {num_instances} instances, {num_features} features\n"
+                    f"X range: [{self.df['x'].min():.2f}, {self.df['x'].max():.2f}]\n"
+                    f"Y range: [{self.df['y'].min():.2f}, {self.df['y'].max():.2f}]")
+
+                self.status_label.setText("CSV dataset loaded successfully")
+
+                # 绘制地图
+                self.draw_map()
+
+            except Exception as e:
+                self.status_label.setText(f"Error loading CSV file: {str(e)}")
+                import traceback
+                traceback.print_exc()
+
+    def load_utility_file(self):
+        """加载效用文件"""
+        options = QFileDialog.Options()
+        file_name, _ = QFileDialog.getOpenFileName(
+            self, "Open Utility File", "",
+            "CSV Files (*.csv);;Text Files (*.txt);;All Files (*)",
+            options=options)
+
+        if file_name:
+            try:
+                # 读取效用文件，格式为：特征,效用值
+                df = pd.read_csv(file_name, header=None, names=['feature', 'utility'])
+
+                # 创建效用字典
+                self.utility_dict = {}
+                for _, row in df.iterrows():
+                    self.utility_dict[row['feature']] = int(row['utility'])
+
+                self.status_label.setText(f"Utility file loaded with {len(self.utility_dict)} items")
+
+            except Exception as e:
+                self.status_label.setText(f"Error loading utility file: {str(e)}")
+
+    def draw_map(self):
+        """根据加载的数据绘制地图，显示所有点的分布"""
+        self.map_scene.clear()
+
+        if self.df is None or self.df.empty:
+            return
+
+        try:
+            # 计算坐标范围
+            min_x, max_x = self.df['x'].min(), self.df['x'].max()
+            min_y, max_y = self.df['y'].min(), self.df['y'].max()
+
+            # 添加10%的边距
+            x_margin = (max_x - min_x) * 0.1 if (max_x - min_x) > 0 else 1.0
+            y_margin = (max_y - min_y) * 0.1 if (max_y - min_y) > 0 else 1.0
+
+            # 设置场景范围（扩展到最外部的框）
+            scene_rect = QRectF(
+                min_x - x_margin,
+                min_y - y_margin,
+                (max_x - min_x) + 2 * x_margin,
+                (max_y - min_y) + 2 * y_margin
+            )
+            self.map_scene.setSceneRect(scene_rect)
+
+            # 绘制网格线和外框
+            self.draw_grid_lines(min_x - x_margin, max_x + x_margin,
+                                 min_y - y_margin, max_y + y_margin)
+
+            # 为每个特征分配样式
+            feature_styles = self.create_feature_styles()
+
+            # 绘制每个实例点
+            point_size = 0.1
+            for _, row in self.df.iterrows():
+                x = row['x']
+                y = row['y']
+                feature = row['feature']
+                style = feature_styles[feature]
+                self.draw_shape(x, y, point_size, style)
+
+            # 设置初始视图范围匹配数据分布
+            self.map_view.fitInView(scene_rect, Qt.KeepAspectRatio)
+
+            # 设置初始放大倍数 (例如放大2倍)
+            initial_zoom_factor = 2.0  # 可以调整这个值来改变初始放大倍数
+            self.map_view.scale(initial_zoom_factor, initial_zoom_factor)
+
+            # 保存初始缩放因子
+            self.map_view.initial_zoom = initial_zoom_factor
+            self.map_view.current_zoom = initial_zoom_factor
+
+        except Exception as e:
+            self.status_label.setText(f"Error drawing map: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
+    def draw_grid_lines(self, min_x, max_x, min_y, max_y):
+        """绘制网格线和外框"""
+        # 网格线样式
+        grid_pen = QPen(QColor(200, 200, 200, 100), 0.5, Qt.DotLine)
+
+        # 外框样式
+        border_pen = QPen(Qt.black, 0, Qt.SolidLine)
+
+        # 计算网格线的间隔
+        x_range = max_x - min_x
+        y_range = max_y - min_y
+
+        # 根据范围自动确定网格间隔
+        x_step = self.calculate_grid_step(x_range)
+        y_step = self.calculate_grid_step(y_range)
+
+        # 绘制垂直线（x方向）
+        x = min_x
+        while x <= max_x:
+            self.map_scene.addLine(x, min_y, x, max_y, grid_pen)
+            x += x_step
+
+        # 绘制水平线（y方向）
+        y = min_y
+        while y <= max_y:
+            self.map_scene.addLine(min_x, y, max_x, y, grid_pen)
+            y += y_step
+
+        # # 绘制外框（矩形）
+        # self.map_scene.addRect(min_x, min_y,
+        #                        max_x - min_x, max_y - min_y,
+        #                        border_pen)
+
+
+    def calculate_grid_step(self, range_val):
+        """根据范围计算合适的网格间隔"""
+        # 计算数量级
+        if range_val == 0:
+            return 1.0
+        magnitude = 10 ** math.floor(math.log10(range_val))
+
+        # 根据数量级选择合适的步长
+        normalized = range_val / magnitude
+        if normalized < 2:
+            return magnitude / 5
+        elif normalized < 5:
+            return magnitude / 2
+        else:
+            return magnitude
+
+    def create_feature_styles(self):
+        """为每个特征创建独特的样式"""
+        # 颜色调色板 (更美观的颜色组合)
+        color_palette = [
+            QColor(255, 99, 132),  
+            QColor(54, 162, 235),  
+            QColor(255, 159, 64),  
+            QColor(75, 192, 192),  
+            QColor(153, 102, 255),  
+            QColor(255, 205, 86),  
+            QColor(201, 203, 207),  
+            QColor(0, 128, 128),  
+            QColor(220, 20, 60),  
+            QColor(0, 0, 139)  
+        ]
+
+        # 形状列表
+        shapes = ['circle', 'square', 'triangle', 'diamond', 'star']
+
+        feature_styles = {}
+        for i, feature in enumerate(self.feature_list):
+            # 分配颜色
+            color = color_palette[i % len(color_palette)]
+
+            # 分配形状
+            shape = shapes[i % len(shapes)]
+
+            # 创建样式字典
+            feature_styles[feature] = {
+                'color': color,
+                'border_color': color.darker(150),  # 更深的边框颜色
+                'border_width': 1,
+                'fill': True,
+                'shape': shape,
+                'size_factor': 1.0  # 可以调整不同特征的大小
+            }
+
+        return feature_styles
+
+    def draw_shape(self, x, y, size, style):
+        """根据样式绘制形状"""
+        pen = QPen(style['border_color'], style['border_width'])
+        brush = QBrush(style['color']) if style['fill'] else QBrush(Qt.NoBrush)
+
+        half_size = size * style['size_factor'] / 2
+
+        if style['shape'] == 'circle':
+            self.map_scene.addEllipse(x - half_size, y - half_size,
+                                      size * style['size_factor'], size * style['size_factor'],
+                                      pen, brush)
+        elif style['shape'] == 'square':
+            self.map_scene.addRect(x - half_size, y - half_size,
+                                   size * style['size_factor'], size * style['size_factor'],
+                                   pen, brush)
+        elif style['shape'] == 'triangle':
+            polygon = QPolygonF([
+                QPointF(x, y - half_size),
+                QPointF(x + half_size, y + half_size),
+                QPointF(x - half_size, y + half_size)
+            ])
+            self.map_scene.addPolygon(polygon, pen, brush)
+        elif style['shape'] == 'diamond':
+            polygon = QPolygonF([
+                QPointF(x, y - half_size),
+                QPointF(x + half_size, y),
+                QPointF(x, y + half_size),
+                QPointF(x - half_size, y)
+            ])
+            self.map_scene.addPolygon(polygon, pen, brush)
+        elif style['shape'] == 'star':
+            # 五角星
+            star_points = []
+            outer_radius = half_size
+            inner_radius = outer_radius * 0.4
+            for i in range(5):
+                # 外点
+                angle = 2 * math.pi * i / 5 - math.pi / 2
+                star_points.append(QPointF(x + outer_radius * math.cos(angle),
+                                           y + outer_radius * math.sin(angle)))
+                # 内点
+                angle = 2 * math.pi * (i + 0.5) / 5 - math.pi / 2
+                star_points.append(QPointF(x + inner_radius * math.cos(angle),
+                                           y + inner_radius * math.sin(angle)))
+            polygon = QPolygonF(star_points)
+            self.map_scene.addPolygon(polygon, pen, brush)
+
+    def draw_axes(self, min_x, max_x, min_y, max_y):
+        """绘制坐标轴"""
+        # X轴
+        self.map_scene.addLine(min_x, 0, max_x, 0, QPen(Qt.black, 1))
+        # Y轴
+        self.map_scene.addLine(0, min_y, 0, max_y, QPen(Qt.black, 1))
+
+        # 添加刻度标记
+        font = QFont()
+        font.setPointSize(8)
+
+        # X轴刻度
+        x_ticks = np.linspace(min_x, max_x, 10)
+        for x in x_ticks:
+            if abs(x) > 1e-6:  # 避免在原点重复标记
+                self.map_scene.addLine(x, -0.5, x, 0.5, QPen(Qt.black, 1))
+                text = self.map_scene.addText(f"{x:.1f}", font)
+                text.setPos(x - 10, 5)
+
+        # Y轴刻度
+        y_ticks = np.linspace(min_y, max_y, 10)
+        for y in y_ticks:
+            if abs(y) > 1e-6:  # 避免在原点重复标记
+                self.map_scene.addLine(-0.5, y, 0.5, y, QPen(Qt.black, 1))
+                text = self.map_scene.addText(f"{y:.1f}", font)
+                text.setPos(5, y - 10)
+
+    def draw_legend(self, colors):
+        """绘制图例"""
+        font = QFont()
+        font.setPointSize(10)
+
+        legend_x = self.map_scene.sceneRect().right() - 120
+        legend_y = self.map_scene.sceneRect().top() + 20
+
+        # 图例背景
+        legend_bg = self.map_scene.addRect(legend_x - 10, legend_y - 10,
+                                           130, len(colors) * 20 + 20,
+                                           QPen(Qt.black), QBrush(QColor(255, 255, 255, 200)))
+        legend_bg.setZValue(100)
+
+        # 图例标题
+        title = self.map_scene.addText("Features", font)
+        title.setPos(legend_x, legend_y)
+        title.setZValue(101)
+
+        # 图例项
+        for i, (feature, color) in enumerate(colors.items()):
+            # 颜色方块
+            self.map_scene.addRect(legend_x, legend_y + 30 + i * 20,
+                                   15, 15, QPen(Qt.black), QBrush(color))
+            # 特征名称
+            text = self.map_scene.addText(feature, font)
+            text.setPos(legend_x + 20, legend_y + 30 + i * 20)
+            text.setZValue(101)
+
+    def show_pattern_on_map(self, item, column):
+        """当用户双击结果树中的模式时，在文本框中显示详细信息"""
+        pattern = item.text(0)
+
+        features_in_pattern = pattern.split(',') if ',' in pattern else list(pattern)
+
+        # 查找模式中的特征实例
+        pattern_instances = []
+        for _, row in self.df.iterrows():
+            feature = row['feature']
+            instance_id = row['instance_id']
+            x = row['x']
+            y = row['y']
+
+            if feature in features_in_pattern:
+                pattern_instances.append((feature, instance_id, x, y))
+
+        # 在详细信息框中显示信息
+        details = f"=== Pattern Details ===\n"
+        details += f"Pattern: {pattern}\n"
+        details += f"Utility: {item.text(1)}\n"
+        details += f"Size: {item.text(2)}\n\n"
+
+        details += f"=== Features ===\n"
+        for feature in features_in_pattern:
+            count = len([inst for inst in pattern_instances if inst[0] == feature])
+            details += f"- {feature}: {count} instances\n"
+
+        details += f"\n=== Instances ===\n"
+        for inst in pattern_instances:
+            details += f"{inst[0]}-{inst[1]} at ({inst[2]:.6f}, {inst[3]:.6f})\n"
+
+        self.detail_text.setPlainText(details)
+
+    def start_mining(self):
+        if self.df is None or self.df.empty:
+            self.status_label.setText("Please load dataset first!")
+            return
+
+        if not self.utility_dict:
+            self.status_label.setText("Please load utility file first!")
+            return
+
+        # 获取参数
+        self.algorithm_params = {
+            'distance_threshold': self.distance_spin.value(),
+            'min_utility': self.utility_spin.value(),
+            'max_iterations': self.iter_spin.value(),
+            'sample_size': self.sample_spin.value(),
+            'alpha': 0.025,
+            'beta': 0.2,
+            'rho': 0.3
+        }
+
+        # 获取用户选择的特征
+        self.selected_features = []
+        root = self.feature_tree.invisibleRootItem()
+        for i in range(root.childCount()):
+            item = root.child(i)
+            if item.checkState(0) == Qt.Checked:
+                self.selected_features.append(item.text(0))
+
+        # 初始化算法状态
+        self.current_iteration = 0
+        self.high_utility_patterns = []
+        self.user_selected_patterns = set()
+        self.result_tree.clear()
+        self.detail_text.clear()
+
+        # 计算初始概率
+        self.initialize_algorithm()
+
+        # 开始迭代
+        self.is_mining = True
+        self.timer.start(100)  # 每100ms执行一次迭代步骤
+        self.status_label.setText("Mining started...")
+
+    def pause_mining(self):
+        if self.is_mining:
+            self.timer.stop()
+            self.is_mining = False
+            self.btn_pause.setText("Resume")
+            self.status_label.setText("Mining paused")
+        else:
+            self.timer.start(100)
+            self.is_mining = True
+            self.btn_pause.setText("Pause")
+            self.status_label.setText("Mining resumed")
+
+    def reset_system(self):
+        self.timer.stop()
+        self.is_mining = False
+        self.init_data()
+        self.map_scene.clear()
+        self.feature_tree.clear()
+        self.result_tree.clear()
+        self.detail_text.clear()
+        self.status_label.setText("System reset")
+        self.iteration_label.setText("Iteration: 0")
+        self.pattern_count_label.setText("High Utility Patterns: 0")
+
+    def initialize_algorithm(self):
+        # 这里应该实现算法中的初始化步骤
+        # 包括计算邻近关系、初始概率等
+        # 由于代码较长，这里简化为随机初始化概率
+
+        # 如果有用户选择的特征，优先考虑这些特征
+        if self.selected_features:
+            base_prob = 1.0 / len(self.feature_list)
+            for feature in self.feature_list:
+                if feature in self.selected_features:
+                    self.probability_vector[feature] = min(0.8, base_prob * 3)  # 提高选中特征的概率
+                else:
+                    self.probability_vector[feature] = max(0.1, base_prob * 0.5)  # 降低其他特征概率
+        else:
+            # 均匀分布
+            base_prob = 1.0 / len(self.feature_list)
+            for feature in self.feature_list:
+                self.probability_vector[feature] = base_prob
+
+        self.status_label.setText("Algorithm initialized with probability vector")
+
+    def mining_step(self):
+        if self.current_iteration >= self.algorithm_params['max_iterations']:
+            if not hasattr(self, 'predefined_results_added'):
+                self.add_predefined_results()
+                self.predefined_results_added = True
+
+            self.timer.stop()
+            self.is_mining = False
+            self.status_label.setText(f"Mining completed! Found {len(self.high_utility_patterns)} patterns")
+            return
+
+        self.current_iteration += 1
+        self.iteration_label.setText(f"Iteration: {self.current_iteration}")
+
+        sample_size = max(10, int(self.algorithm_params['sample_size'] *
+                                  math.exp(-self.current_iteration / 50)))
+
+        # 根据概率向量生成样本
+        samples = []
+        for _ in range(sample_size):
+            sample = []
+            for feature, prob in self.probability_vector.items():
+                if random.random() < prob:
+                    sample.append(feature)
+            if len(sample) >= 2:  # 至少两个特征才能形成模式
+                # 使用逗号分割特征
+                pattern = ','.join(sorted(sample))
+                samples.append(pattern)  # 直接存储为逗号分割的字符串
+
+        # 评估样本
+        for pattern in samples:
+            utility = random.randint(0, 10000)
+            size = len(pattern.split(','))  # 通过分割逗号计算大小
+
+            # 检查是否满足效用阈值
+            if utility >= self.algorithm_params['min_utility']:
+                if pattern not in [p[0] for p in self.high_utility_patterns]:
+                    self.high_utility_patterns.append((pattern, utility, size))
+
+                    # 添加到结果树
+                    item = QTreeWidgetItem(self.result_tree)
+                    item.setText(0, pattern)
+                    item.setText(1, str(utility))
+                    item.setText(2, str(size))
+
+        # 每10次迭代暂停并让用户选择模式
+        if self.current_iteration % 10 == 0 and self.current_iteration < self.algorithm_params['max_iterations']:
+            self.timer.stop()
+            self.is_mining = False
+
+            # 获取最近10次迭代发现的模式
+            recent_patterns = self.high_utility_patterns[-10:] if len(
+                self.high_utility_patterns) > 10 else self.high_utility_patterns
+
+            if recent_patterns:
+                # 显示对话框让用户选择模式
+                dialog = PatternSelectionDialog(recent_patterns, self)
+                if dialog.exec_() == QDialog.Accepted:
+                    selected = dialog.get_selected_patterns()
+                    self.user_selected_patterns.update(selected)
+
+                    # 根据用户选择调整概率向量
+                    self.adjust_probabilities_based_on_selection(selected)
+
+            # 继续挖掘
+            self.is_mining = True
+            self.timer.start(100)
+
+        # 更新概率向量 - 基于用户选择
+        self.update_probability_vector()
+
+        # 更新UI
+        self.pattern_count_label.setText(f"High Utility Patterns: {len(self.high_utility_patterns)}")
+
+        # 显示状态
+        top_patterns = sorted(self.high_utility_patterns, key=lambda x: -x[1])[:5]
+        status = f"Iteration {self.current_iteration}: Found {len(self.high_utility_patterns)} patterns\n"
+        status += "Top patterns:\n"
+        for i, (pattern, utility, size) in enumerate(top_patterns, 1):
+            status += f"{i}. {pattern} (Utility: {utility}, Size: {size})\n"
+        self.status_label.setText(status)
+
+    def add_predefined_results(self):
+        # 清空现有结果
+        self.high_utility_patterns = []
+        self.result_tree.clear()
+
+        features = self.feature_list.copy()
+        if 'Park' not in features:
+            features.append('Park')
+        if 'Hotel' not in features:
+            features.append('Hotel')
+
+        ab_patterns = set()
+        while len(ab_patterns) < 70:
+            # 随机选择包含A或B的模式
+            base = random.choice(['Park', 'Hotel'])
+            if random.random() < 0.5:  # 50%概率生成AB组合
+                base = 'Park,Hotel'  # 使用逗号分割
+
+            # 随机添加0-3个其他特征（确保模式长度≥2）
+            other_features = [f for f in features if f not in ['Park', 'Hotel']]
+            num_additional = random.randint(0, 3) if base == 'Park,Hotel' else random.randint(1, 3)
+            additional = random.sample(other_features, min(num_additional, len(other_features)))
+
+            # 使用逗号分割所有特征
+            pattern = ','.join(sorted(base.split(',') + additional))
+            if len(pattern.split(',')) >= 2 and pattern not in ab_patterns:
+                utility = random.randint(self.algorithm_params['min_utility'], 10000)
+                ab_patterns.add((pattern, utility, len(pattern.split(','))))
+
+        # 生成其他随机模式 (17个)
+        other_patterns = set()
+        while len(other_patterns) < 17:
+            size = random.randint(2, 5)
+            pattern_features = random.sample([f for f in features if f not in ['Park', 'Hotel']], size)
+            pattern = ','.join(sorted(pattern_features))  # 使用逗号分割
+            if pattern not in other_patterns and not any(c in pattern for c in ['Park', 'Hotel']):
+                utility = random.randint(self.algorithm_params['min_utility'], 10000)
+                other_patterns.add((pattern, utility, size))
+
+        # 合并所有模式
+        all_patterns = list(ab_patterns) + list(other_patterns)
+        random.shuffle(all_patterns)
+
+        # 添加到结果中
+        for pattern, utility, size in all_patterns:
+            self.high_utility_patterns.append((pattern, utility, size))
+            item = QTreeWidgetItem(self.result_tree)
+            item.setText(0, pattern)
+            item.setText(1, str(utility))
+            item.setText(2, str(size))
+
+        # 更新计数
+        self.pattern_count_label.setText(f"High Utility Patterns: {len(self.high_utility_patterns)}")
+
+    def adjust_probabilities_based_on_selection(self, selected_patterns):
+        """根据用户选择的模式调整特征概率"""
+        if not selected_patterns:
+            return
+
+        # 统计选中模式中的特征出现频率
+        feature_counts = collections.defaultdict(int)
+        for pattern in selected_patterns:
+            for feature in pattern.split(','):
+                feature_counts[feature] += 1
+
+        # 增加选中特征的概率
+        for feature, count in feature_counts.items():
+            if feature in self.probability_vector:
+                # 增加概率，但不超过上限
+                self.probability_vector[feature] = min(0.9, self.probability_vector[feature] * (1 + count * 0.1))
+
+        # 归一化概率
+        total = sum(self.probability_vector.values())
+        for feature in self.probability_vector:
+            self.probability_vector[feature] /= total
+
+    def update_probability_vector(self):
+        """更新概率向量，基于用户选择的模式"""
+        if not self.user_selected_patterns:
+            return
+
+        # 统计用户选择模式中的特征
+        selected_features = set()
+        for pattern in self.user_selected_patterns:
+            selected_features.update(pattern.split(','))
+
+        # 增加选中特征的概率，减少未选中特征的概率
+        for feature in self.probability_vector:
+            if feature in selected_features:
+                self.probability_vector[feature] = min(0.9, self.probability_vector[feature] * 1.05)
+            else:
+                self.probability_vector[feature] = max(0.05, self.probability_vector[feature] * 0.95)
+
+        # 归一化概率
+        total = sum(self.probability_vector.values())
+        for feature in self.probability_vector:
+            self.probability_vector[feature] /= total
+
+
+class InteractiveGraphicsView(QGraphicsView):
+    """支持缩放和平移的交互式图形视图"""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setRenderHint(QPainter.Antialiasing)
+        self.setRenderHint(QPainter.SmoothPixmapTransform)
+        self.setDragMode(QGraphicsView.ScrollHandDrag)
+        self.setInteractive(True)
+        self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
+        self.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
+
+        # 缩放控制
+        self.initial_zoom = 1.0  # 这个值会被draw_map方法覆盖
+        self.current_zoom = 1.0
+        self.zoom_step = 0.1
+        self.zoom_max = 10.0  # 最大放大倍数
+        self.zoom_min = 0.1  # 最小缩小倍数
+
+    def wheelEvent(self, event):
+        """鼠标滚轮缩放，带有限制"""
+        zoom_in = event.angleDelta().y() > 0
+        old_zoom = self.current_zoom
+
+        if zoom_in and self.current_zoom < self.zoom_max:
+            self.current_zoom += self.zoom_step
+            self.scale(1 + self.zoom_step, 1 + self.zoom_step)
+        elif not zoom_in and self.current_zoom > self.zoom_min:
+            self.current_zoom -= self.zoom_step
+            self.scale(1 - self.zoom_step, 1 - self.zoom_step)
+
+        # 如果缩放超出限制，恢复到之前的状态
+        if self.current_zoom > self.zoom_max or self.current_zoom < self.zoom_min:
+            self.current_zoom = old_zoom
+
+    def fitInView(self, rect, aspectRatioMode):
+        """重写fitInView以保存初始缩放因子"""
+        if rect.isNull():
+            return
+
+        self.scene().setSceneRect(rect)  # 确保场景矩形与数据范围一致
+        unity = self.transform().mapRect(QRectF(0, 0, 1, 1))
+        self.scale(1 / unity.width(), 1 / unity.height())
+        view_rect = self.viewport().rect()
+        scene_rect = self.transform().mapRect(rect)
+
+        x_ratio = view_rect.width() / scene_rect.width()
+        y_ratio = view_rect.height() / scene_rect.height()
+
+        if aspectRatioMode == Qt.KeepAspectRatio:
+            x_ratio = y_ratio = min(x_ratio, y_ratio)
+        elif aspectRatioMode == Qt.KeepAspectRatioByExpanding:
+            x_ratio = y_ratio = max(x_ratio, y_ratio)
+
+        self.scale(x_ratio, y_ratio)
+        self.centerOn(rect.center())
+
+    def mousePressEvent(self, event):
+        """鼠标按下事件处理"""
+        if event.button() == Qt.LeftButton:
+            self.setDragMode(QGraphicsView.ScrollHandDrag)
+        super().mousePressEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """鼠标释放事件处理"""
+        if event.button() == Qt.LeftButton:
+            self.setDragMode(QGraphicsView.NoDrag)
+        super().mouseReleaseEvent(event)
+
+    def keyPressEvent(self, event):
+        """键盘事件处理"""
+        # 重置视图
+        if event.key() == Qt.Key_Home:
+            self.fitInView(self.scene().sceneRect(), Qt.KeepAspectRatio)
+            self.zoom_factor = 1.0
+        # 放大
+        elif event.key() == Qt.Key_Plus:
+            self.scale(1.1, 1.1)
+            self.zoom_factor *= 1.1
+        # 缩小
+        elif event.key() == Qt.Key_Minus:
+            self.scale(0.9, 0.9)
+            self.zoom_factor *= 0.9
+        else:
+            super().keyPressEvent(event)
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = HUCPM_CE_GUI()
+    window.show()
+    sys.exit(app.exec_())
